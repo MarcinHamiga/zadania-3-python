@@ -24,15 +24,16 @@ class Cuboid(Rectangle):
         super().__init__(length, height)
         self.width = width
         
-    def area(self):
+    def area(self) -> float:
         ppp = 0
         for sides in range(4):
             ppp += super().area()
         for sides in range(2):
             ppp += self.length * self.width
+        return round(ppp, 2)
             
-    def volume(self):
-        return self.length * self.height * self.width
+    def volume(self) -> float:
+        return round(self.length * self.height * self.width, 2)
     
     def __str__(self):
         return f"Prostopadłościan:\nDługość: {self.length}\nWysokość: {self.height}\nSzerokość: {self.width}\nPPP: {self.area()}\nObjętość: {self.volume()}"
