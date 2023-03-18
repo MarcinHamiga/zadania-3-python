@@ -22,15 +22,12 @@ class Rectangle:
 class Cuboid(Rectangle):
     def __init__(self, length, height, width):
         super().__init__(length, height)
+        if (width <= 0):
+            raise InvalidData
         self.width = width
         
     def area(self) -> float:
-        ppp = 0
-        for sides in range(4):
-            ppp += super().area()
-        for sides in range(2):
-            ppp += self.length * self.width
-        return round(ppp, 2)
+        return round(2 * super().area() + 2 * self.width * self.height + self.width * self.length, 2)
             
     def volume(self) -> float:
         return round(self.length * self.height * self.width, 2)
