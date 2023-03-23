@@ -51,21 +51,25 @@ if __name__ == "__main__":
         
     for idx, bit in enumerate(data):
         data[idx] = bit.split()
-        
-    try:    
+
+    if data[-1] == []:
+        data.pop(-1)
+           
         for id, bit in enumerate(data):
-            for idx, param in enumerate(bit):
-                bit[idx] = float(param)
+            try:
+                for idx, param in enumerate(bit):
+                    data[id][idx] = float(param)
         
-    except ValueError:
-        print("Wartości nie numeryczne w pliku. Pomijanie wiersza.")
-        data.pop(id)
-        exit()
+            except ValueError:
+                print("Wartości nie numeryczne w pliku. Pomijanie wiersza.")
+                data[id] = "X"
 
     objs = []
     for shape in data:
         try:
-            if shape[0] == 1:
+            if shape[0] == "X":
+                continue
+            elif shape[0] == 1:
                 objs.append(Rectangle(shape[1], shape[2]))
             elif shape[0] == 2:
                 objs.append(Cuboid(shape[1], shape[2], shape[3]))
@@ -74,6 +78,10 @@ if __name__ == "__main__":
     
         except IndexError:
             print("Niekompletne dane w jednym z wierszy. Pomijanie...")
+        
+        except TypeError:
+            print("Dane nienumeryczne w pliku. Pomijanie...")
+            
         
     for obj in objs:
         print(f"{obj}\n")
